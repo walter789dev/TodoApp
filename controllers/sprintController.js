@@ -119,7 +119,7 @@ const addTaskToSprint = async (req, res) => {
       });
     }
 
-    sprint.tareas.push(taskId);
+    sprint.tasks.push(taskId);
     await sprint.save();
 
     const backlog = await Backlog.findOne();

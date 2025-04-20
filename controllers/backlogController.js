@@ -67,10 +67,7 @@ const addTaskToBacklog = async (req, res) => {
     backlog.tasks.push(taskId);
     await backlog.save();
 
-    res.status(200).json({
-      success: true,
-      data: backlog,
-    });
+    res.status(200).json(backlog);
   } catch (error) {
     res.status(500).json({
       error: "Error de conexion",
