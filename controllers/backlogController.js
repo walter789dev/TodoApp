@@ -9,7 +9,7 @@ const getBacklog = async (_, res) => {
       backlog = await Backlog.create({ tasks: [] });
     }
 
-    if (backlog.tareas > 0) {
+    if (backlog.tasks > 0) {
       backlog = await backlog.populate("tasks");
     }
 
@@ -58,13 +58,13 @@ const addTaskToBacklog = async (req, res) => {
       });
     }
 
-    if (backlog.tareas.includes(taskId)) {
+    if (backlog.tasks.includes(taskId)) {
       return res.status(400).json({
         error: "La tarea ya está en el backlog",
       });
     }
 
-    backlog.tareas.push(taskId);
+    backlog.tasks.push(taskId);
     await backlog.save();
 
     res.status(200).json({

@@ -37,7 +37,7 @@ const createTask = async (req, res) => {
     const backlog = await Backlog.findOne();
 
     if (backlog) {
-      backlog.tareas.push(task._id);
+      backlog.tasks.push(task._id);
       await backlog.save();
     }
 
@@ -80,7 +80,7 @@ const deleteTask = async(req, res) => {
       });
     }
     
-    const sprint = await Sprint.findOne({ tareas: req.params.id });
+    const sprint = await Sprint.findOne({ tasks: req.params.id });
     if (sprint) {
       return res.status(400).json({
         error: 'No se puede eliminar una tarea asignada a un sprint'
@@ -88,9 +88,9 @@ const deleteTask = async(req, res) => {
     }
     
 
-    const backlog = await Backlog.findOne({ tareas: req.params.id });
+    const backlog = await Backlog.findOne({ tasks: req.params.id });
     if (backlog) {
-      backlog.tareas = backlog.tareas.filter(
+      backlog.tasks = backlog.tasks.filter(
         tareaid => tareaid.toString() !== req.params.id
       );
       await backlog.save();

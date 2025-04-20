@@ -75,15 +75,15 @@ const deleteSprint = async (req, res) => {
       });
     }
 
-    if (sprint.tareas.length > 0) {
+    if (sprint.tasks.length > 0) {
       const backlog = await Backlog.findOne();
       if (backlog) {
-        backlog.tareas = [...backlog.tareas, ...sprint.tareas];
+        backlog.tasks = [...backlog.tasks, ...sprint.tasks];
         await backlog.save();
       }
     }
 
-    await sprint.deleteOne();
+    await sprint.deleteOne()
 
     res.status(200).json({
       eliminated: true,
@@ -113,7 +113,7 @@ const addTaskToSprint = async (req, res) => {
       });
     }
 
-    if (sprint.tareas.includes(taskId)) {
+    if (sprint.tasks.includes(taskId)) {
       return res.status(400).json({
         error: "La tarea ya está asignada a este sprint",
       });
@@ -124,7 +124,7 @@ const addTaskToSprint = async (req, res) => {
 
     const backlog = await Backlog.findOne();
     if (backlog) {
-      backlog.tareas = backlog.tareas.filter(
+      backlog.tasks = backlog.tasks.filter(
         (tareaid) => tareaid.toString() !== taskId
       );
       await backlog.save();

@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 
 const backlogSchema = new Schema({
-  tareas: [
+  tasks: [
     {
       type: Schema.Types.ObjectId,
       ref: "Task",
